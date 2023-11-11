@@ -3,48 +3,30 @@
 """ File storage model """
 import json
 from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
 
 
-class FileStorage():
+class FileStorage:
 
-    """
-    FileStorage class
-    """
+    """File Storage class"""
 
     __file_path = "file.json"
     __objects = {}
-    __models = {
-        'User': User,
-        'BaseModel': BaseModel,
-        'State': State,
-        'City': City,
-        'Amenity': Amenity,
-        'Place': Place,
-        'Review': Review
-    }
 
     def all(self):
         """
-        Returns all objects in BaseModel class representing format
+        returns the dictionary __objects
         """
         return self.__objects
 
     def new(self, obj):
         """
-        Add obj to objects
+        sets in __objects the obj with key <obj class name>.id
         """
         self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
         """"
-        Serialize objects in __objects to json objects and
-        save them in file.json file format
+        serializes __objects to the JSON file (path: __file_path)
         """
         json_objs = {}
         for key, val in self.__objects.items():

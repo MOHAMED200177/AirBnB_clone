@@ -55,29 +55,21 @@ class HBNBCommand(cmd.Cmd):
                 return
 
     def do_show(self, arg):
-        """Print the string representation of an instance
-        based on the class name and id."""
-
-        args = arg.split()
-
-        if args == []:
+        """Usage: show <class> <id> or <class>.show(<id>)
+        Display the string representation of a class instance of a given id.
+        """
+        argl = parse(arg)
+        objdict = storage.all()
+        if len(argl) == 0:
             print("** class name missing **")
-            return
-        elif args[0] not in self.classes:
+        elif argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-            return
-        elif len(args) != 2:
+        elif len(argl) == 1:
             print("** instance id missing **")
-            return
-
-        all_object = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        if key in all_object.keys():
-            all_object.pop(key)
-            storage.save()
-        else:
+        elif "{}.{}".format(argl[0], argl[1]) not in objdict:
             print("** no instance found **")
-            return
+        else:
+            print(objdict["{}.{}".format(argl[0], argl[1])])
 
 
 if __name__ == '__main__':

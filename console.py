@@ -1,23 +1,14 @@
 #!/usr/bin/python3
-"""
-This module defines the HBNBCommand class, which is a command interpreter
-with specific functionality.
+"""console module
 """
 
 import cmd
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-    HBNBCommand class is a command interpreter that inherits from cmd.Cmd.
-    """
-    prompt = "(hbnb) "
+    """class of command interpreter."""
 
-    def emptyline(self):
-        """
-        Do nothing on empty input line (just pressing ENTER).
-        """
-        pass
+    prompt = "(hbnb)"
 
     def do_quit(self, arg):
         """
@@ -27,11 +18,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """
-        Handle EOF (Ctrl+D) to exit the program.
+        EOF command to exit the program.
         """
-        print()
         return True
 
+    def emptyline(self):
+        """
+        an empty line + ENTER shouldn’t execute anything
+        """
+        pass
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     HBNBCommand().cmdloop()

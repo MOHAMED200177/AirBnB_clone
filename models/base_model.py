@@ -11,7 +11,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """__init__.
-        id :  unique ID 
+        id :  unique ID
         created_at : Record the creation timestamp
         updated_at : Updated timestamp
         """

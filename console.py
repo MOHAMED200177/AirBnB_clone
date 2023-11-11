@@ -70,15 +70,6 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
 
-        all_object = storage.all()
-        key = "{}.{}".format(args[0], args[1])
-        if key in all_object.keys():
-            all_object.pop(key)
-            storage.save()
-        else:
-            print("** no instance found **")
-            return
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

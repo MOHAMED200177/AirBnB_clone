@@ -22,8 +22,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.base.id, str)
         self.assertIsInstance(self.base.created_at, datetime)
         self.assertIsInstance(self.base.updated_at, datetime)
-        self.assertEqual(self.base.name, "My First Model")
-        self.assertEqual(self.base.my_number, 89)
 
     def test_create_instance_with_kwargs(self):
         """

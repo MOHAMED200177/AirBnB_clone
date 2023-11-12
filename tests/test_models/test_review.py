@@ -50,8 +50,8 @@ class TestConstructor(unittest.TestCase):
             "place_id": "place-456",
             "user_id": "user-789",
             "text": "Beautiful view and comfortable stay",
-            "created_at": "2023-08-11T23:00:25.886465",
-            "updated_at": "2023-08-11T23:00:25.886466"
+            "created_at": "2023-10-11T23:00:25.886465",
+            "updated_at": "2023-10-11T23:00:25.886466"
         }
 
         new_review = Review(**review_data)

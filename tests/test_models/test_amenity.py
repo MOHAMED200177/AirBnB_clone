@@ -73,7 +73,7 @@ class TestConstructor(unittest.TestCase):
         # all_objects = storage.all()
         # new_number = all_objects[self.amenity.__class__.__name__ +
         #                          "." + self.amenity.id]["name"]
-        # self.assertEqual(new_number, "Emad")
+        # self.assertEqual(new_number, "mohamed")
 
     def test_str(self):
         """

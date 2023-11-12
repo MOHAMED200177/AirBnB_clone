@@ -13,10 +13,10 @@ class TestConstructor(unittest.TestCase):
     test class for the max_integer() function.
     """
     user = User()
-    user.email = "Emad@Alx.com"
-    user.password = "EL0mda"
-    user.first_name = "Emad"
-    user.last_name = "Anwer"
+    user.email = "mohamed@Alx.com"
+    user.password = "123456789"
+    user.first_name = "mohamed"
+    user.last_name = "elsayed"
 
     def test_default_values(self):
         """test default value"""
@@ -26,6 +26,7 @@ class TestConstructor(unittest.TestCase):
         self.assertEqual(u.password, "")
         self.assertEqual(u.first_name, "")
         self.assertEqual(u.last_name, "")
+
     def test_create_instance_without_kwargs(self):
         """
         create an instance of class without kwargs
@@ -39,10 +40,10 @@ class TestConstructor(unittest.TestCase):
         self.assertIsInstance(self.user.password, str)
         self.assertIsInstance(self.user.first_name, str)
         self.assertIsInstance(self.user.last_name, str)
-        self.assertEqual(self.user.email, "Emad@Alx.com")
-        self.assertEqual(self.user.password, "EL0mda")
-        self.assertEqual(self.user.first_name, "Emad")
-        self.assertEqual(self.user.last_name, "Anwer")
+        self.assertEqual(self.user.email, "mohamed@Alx.com")
+        self.assertEqual(self.user.password, "123456789")
+        self.assertEqual(self.user.first_name, "mohamed")
+        self.assertEqual(self.user.last_name, "elsayed")
 
     def test_create_instance_with_kwargs(self):
         """
@@ -53,7 +54,7 @@ class TestConstructor(unittest.TestCase):
             "email": "Ali@Alx.com",
             "password": "new_password",
             "first_name": "Ali",
-            "last_name": "Anwer",
+            "last_name": "elsayed",
             "created_at": "2023-08-11T23:00:25.886465",
             "updated_at": "2023-08-11T23:00:25.886466"
         }
@@ -74,7 +75,7 @@ class TestConstructor(unittest.TestCase):
         self.assertEqual(new_user.email, "Ali@Alx.com")
         self.assertEqual(new_user.password, "new_password")
         self.assertEqual(new_user.first_name, "Ali")
-        self.assertEqual(new_user.last_name, "Anwer")
+        self.assertEqual(new_user.last_name, "elsayed")
 
     def test_to_dict(self):
         """

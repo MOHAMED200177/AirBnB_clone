@@ -81,7 +81,7 @@ class TestConstructor(unittest.TestCase):
         # all_objects = storage.all()
         # new_number = all_objects[self.city.__class__.__name__ +
         #                          "." + self.city.id]["name"]
-        # self.assertEqual(new_number, "Body")
+        # self.assertEqual(new_number, "mohamed")
 
     def test_str(self):
         """

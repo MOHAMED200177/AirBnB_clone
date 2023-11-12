@@ -40,8 +40,8 @@ class TestConstructor(unittest.TestCase):
         state_data = {
             "id": "ALX-123",
             "name": "Alexandria",
-            "created_at": "2023-08-11T23:00:25.886465",
-            "updated_at": "2023-08-11T23:00:25.886466"
+            "created_at": "2023-10-11T23:00:25.886465",
+            "updated_at": "2023-10-11T23:00:25.886466"
         }
 
         new_state = State(**state_data)

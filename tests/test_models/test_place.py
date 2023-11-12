@@ -93,8 +93,8 @@ class TestConstructor(unittest.TestCase):
             "latitude": 34.0522,
             "longitude": -118.2437,
             "amenity_ids": ["amenity-3", "amenity-4"],
-            "updated_at": "2023-08-11T23:00:25.886466",
-            "created_at": "2023-08-11T23:00:25.886465"
+            "updated_at": "2023-10-11T23:00:25.886466",
+            "created_at": "2023-10-11T23:00:25.886465"
         }
 
         new_place = Place(**place_data)
@@ -145,14 +145,14 @@ class TestConstructor(unittest.TestCase):
             test save class method
         """
         before_update_time = self.place.updated_at
-        self.place.name = "Emad"
+        self.place.name = "mohamed"
         self.place.save()
         after_update_time = self.place.updated_at
         self.assertNotEqual(before_update_time, after_update_time)
         # all_objects = storage.all()
         # new_number = all_objects[self.place.__class__.__name__ +
         #                          "." + self.place.id]["name"]
-        # self.assertEqual(new_number, "Emad")
+        # self.assertEqual(new_number, "mohamed")
 
     def test_str(self):
         """

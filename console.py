@@ -20,68 +20,68 @@ class HBNBCommand(cmd.Cmd):
                     "City": City, "Amenity": Amenity,
                     "Place": Place, "Review": Review, "User": User}
 
-    def do_EOF(self, line):
+    def do_EOF(self, arg):
         """EOF command to exit the program."""
         return True
 
-    def do_quit(self, line):
+    def do_quit(self, arg):
         """Quit command to exit the program."""
         return True
 
-    def emptyline(self):
-        """Empty line."""
+    def emptyarg(self):
+        """Empty arg."""
         pass
 
-    def do_create(self, line):
+    def do_create(self, arg):
         """Creates a new instance of BaseModel, saves it"""
-        if line == "":
+        if arg == "":
             print("** class name missing **")
             return
         else:
             try:
-                myclass = eval(line + "()")
+                myclass = eval(arg + "()")
                 myclass.save()
                 print(myclass.id)
             except Exception as e:
                 print("** class doesn't exist **")
                 return
 
-    def do_show(self, line):
+    def do_show(self, arg):
         """Print the string representation of an instance
         based on the class name and id."""
-        line_vactor = line.split()
-        if line_vactor == []:
+        args = arg.split()
+        if args == []:
             print("** class name missing **")
             return
-        elif self.classes_dict.get(line_vactor[0]) is None:
+        elif self.classes_dict.get(args[0]) is None:
             print("** class doesn't exist **")
             return
-        elif len(line_vactor) != 2:
+        elif len(args) != 2:
             print("** instance id missing **")
             return
         objects_class = storage.all()
-        key = line_vactor[0] + "." + line_vactor[1]
+        key = args[0] + "." + args[1]
         if key in objects_class.keys():
             print(objects_class[key].__str__())
         else:
             print("** no instance found **")
             return
 
-    def do_destroy(self, line):
+    def do_destroy(self, arg):
         """Delete an instance based on the class name and id."""
-        line_vactor = line.split()
-        if line_vactor == []:
+        args = arg.split()
+        if args == []:
             print("** class name missing **")
             return
-        elif self.classes_dict.get(line_vactor[0]) is None:
+        elif self.classes_dict.get(args[0]) is None:
             print("** class doesn't exist **")
             return
-        elif len(line_vactor) != 2:
+        elif len(args) != 2:
             print("** instance id missing **")
             return
 
         objects_class = storage.all()
-        key = line_vactor[0] + "." + line_vactor[1]
+        key = args[0] + "." + args[1]
         if key in objects_class.keys():
             objects_class.pop(key)
             storage.save()
@@ -89,14 +89,14 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
-    def do_all(self, line):
+    def do_all(self, ars):
         """Print all string representation of all instances"""
-        line_vactor = line.split()
+        args = ars.split()
 
         objects_string_representation = []
         class_to_represent = None
-        if line_vactor != []:
-            class_to_represent = line_vactor[0]
+        if args != []:
+            class_to_represent = args[0]
             if class_to_represent not in self.classes_dict:
                 print("** class doesn't exist **")
                 return
@@ -110,14 +110,14 @@ class HBNBCommand(cmd.Cmd):
 
         print(objects_string_representation)
 
-    def do_update(self, line):
+    def do_update(self, arg):
         """Updates an instance based on the class name and id"""
-        line_vector = line.split()
-        vector_len = len(line_vector)
-        if line_vector == []:
+        args = arg.split()
+        vector_len = len(args)
+        if args == []:
             print("** class name missing **")
             return
-        elif line_vector[0] not in self.classes_dict:
+        elif args[0] not in self.classes_dict:
             print("** class doesn't exist **")
             return
         elif vector_len < 2:
@@ -125,7 +125,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             objects_class = storage.all()
-            key = line_vector[0] + "." + line_vector[1]
+            key = args[0] + "." + args[1]
 
             if key not in objects_class.keys():
                 print("** no instance found **")
@@ -138,32 +138,32 @@ class HBNBCommand(cmd.Cmd):
                 return
             else:
                 setattr(objects_class[key],
-                        line_vector[2],  eval(line_vector[3]))
+                        args[2],  eval(args[3]))
                 objects_class[key].save()
 
-    def do_count(self, line):
+    def do_count(self, arg):
         """Display count of instances specified"""
-        if line in HBNBCommand.classes_dict:
+        if arg in HBNBCommand.classes_dict:
             count = 0
             for key, objs in storage.all().items():
-                if line in key:
+                if arg in key:
                     count += 1
             print(count)
         else:
             print("** class doesn't exist **")
 
-    def default(self, line):
+    def default(self, arg):
         """Handle Cmd methods."""
-        line_vector = line.split('.')
-        class_argument = line_vector[0]
+        args = arg.split('.')
+        class_argument = args[0]
 
-        if line_vector == []:
-            print("*** Unknown syntax: {}".format(line))
+        if args == []:
+            print("*** Unknown syntax: {}".format(arg))
             return
 
         try:
-            line_vector = line_vector[1].split('(')
-            command = line_vector[0]
+            args = args[1].split('(')
+            command = args[0]
 
             if command == 'all':  # <class name>.all
                 HBNBCommand.do_all(self, class_argument)  # all BaseModel
@@ -172,30 +172,30 @@ class HBNBCommand(cmd.Cmd):
                 HBNBCommand.do_count(self, class_argument)
 
             elif command == 'show':  # <class name>.show(<id>)
-                line_vector = line_vector[1].split(')')
-                id_argument = line_vector[0].strip("'\"")
+                args = args[1].split(')')
+                id_argument = args[0].strip("'\"")
                 argument = class_argument + ' ' + id_argument
                 HBNBCommand.do_show(self, argument)  # show BaseModel 123
 
             elif command == 'destroy':  # <class name>.destroy(<id>)
-                line_vector = line_vector[1].split(')')
-                id_argument = line_vector[0].strip("'\"")
+                args = args[1].split(')')
+                id_argument = args[0].strip("'\"")
                 argument = class_argument + ' ' + id_argument
                 HBNBCommand.do_destroy(self, argument)  # destroy BaseModel 122
 
             elif command == 'update':
-                line_vector = line_vector[1].split(',')
-                id_argument = line_vector[0].strip("'\"")
-                name_argument = line_vector[1].strip(',')
-                if "{" not in line:
-                    value_argument = line_vector[2]
+                args = args[1].split(',')
+                id_argument = args[0].strip("'\"")
+                name_argument = args[1].strip(',')
+                if "{" not in arg:
+                    value_argument = args[2]
                     name_argument = name_argument.strip(" '\"")
                     value_argument = value_argument.strip(' )')
-                if "{" in line:
+                if "{" in arg:
 
-                    b1 = line.index('{')
-                    b2 = line.index('}')
-                    value_dict = line[b1 + 1: b2].replace(" ", "")
+                    b1 = arg.index('{')
+                    b2 = arg.index('}')
+                    value_dict = arg[b1 + 1: b2].replace(" ", "")
                     value_dict_list = value_dict.split(",")
 
                     for s in value_dict_list:
@@ -213,11 +213,11 @@ class HBNBCommand(cmd.Cmd):
                     HBNBCommand.do_update(self, argument)
 
             else:
-                print("*** Unknown syntax: {}".format(line))
+                print("*** Unknown syntax: {}".format(arg))
                 return
 
         except IndexError:
-            print("*** Unknown syntax: {}".format(line))
+            print("*** Unknown syntax: {}".format(arg))
 
 
 if __name__ == '__main__':

@@ -101,14 +101,14 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
-    def do_all(self, line):
+    def do_all(self, arg):
         """Print all string representation of all instances"""
-        line_vactor = line.split()
+        args = arg.split()
 
         objects_string_representation = []
         class_to_represent = None
-        if line_vactor != []:
-            class_to_represent = line_vactor[0]
+        if args != []:
+            class_to_represent = args[0]
             if class_to_represent not in self.classes:
                 print("** class doesn't exist **")
                 return

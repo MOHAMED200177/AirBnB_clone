@@ -1,12 +1,17 @@
 #!/usr/bin/python3
-"""Defines the State class."""
+"""state model."""
 from models.base_model import BaseModel
 
 
 class State(BaseModel):
-    """Represent a state.
-    Attributes:
-        name (str): The name of the state.
-    """
+    """state class."""
 
     name = ""
+
+    def __init__(self, *args, **kwargs):
+        """Instance Constructor.
+
+        args
+        name : string state email
+        """
+        super().__init__(*args, **kwargs)

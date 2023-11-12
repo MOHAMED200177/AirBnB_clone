@@ -1,16 +1,20 @@
 #!/usr/bin/python3
-"""Defines the Review class."""
+"""review model."""
 from models.base_model import BaseModel
 
 
 class Review(BaseModel):
-    """Represent a review.
-    Attributes:
-        place_id (str): The Place id.
-        user_id (str): The User id.
-        text (str): The text of the review.
-    """
+    """review class."""
 
-    place_id = ""
-    user_id = ""
+    place_id = ""  # Place.id
+    user_id = ""  # User.id
     text = ""
+
+    def __init__(self, *args, **kwargs):
+        """Instance Constructor.
+
+        args
+        name : string review email
+        """
+
+        super().__init__(*args, **kwargs)

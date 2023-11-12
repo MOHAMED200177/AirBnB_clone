@@ -162,7 +162,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         try:
-            arg = args[1].split('(')
+            args = args[1].split('(')
             command = args[0]
 
             if command == 'all':  # <class name>.all

@@ -1,58 +1,50 @@
 #!/usr/bin/python3
-"""this is the base model."""
-
-from uuid import uuid4
+""" Class BaseModel """
 from datetime import datetime
+from uuid import uuid4
 import models
 
 
 class BaseModel:
-    """BaseModel class"""
+    """ construct """
 
     def __init__(self, *args, **kwargs):
-        """__init__.
-        id :  unique ID
-        created_at : Record the creation timestamp
-        updated_at : Updated timestamp
-        """
-        if not kwargs:
+        """ Construct """
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    continue
+                elif key == 'updated_at':
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                elif key == 'created_at':
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                if 'id' not in kwargs.keys():
+                    self.id = str(uuid4())
+                if 'created_at' not in kwargs.keys():
+                    self.created_at = datetime.now()
+                if 'updated_at' not in kwargs.keys():
+                    self.updated_at = datetime.now()
+                setattr(self, key, value)
+        else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.updated_at = self.created_at
             models.storage.new(self)
-        else:
-            for key, value in kwargs.items():
-                if key != "__class__":
-                    if key == "updated_at":
-                        self.updated_at = datetime.fromisoformat(value)
-                    elif key == "created_at":
-                        self.created_at = datetime.fromisoformat(value)
-                    else:
-                        setattr(self, key, value)
 
     def __str__(self):
-        """__str__.
-
-        return string Representation.
-        """
-        return f"[{self.__class__.__name__}] ({self.id}) <{self.__dict__}>"
+        """ String """
+        return('[' + type(self).__name__ + '] (' + str(self.id) +
+               ') ' + str(self.__dict__))
 
     def save(self):
-        """save.
-
-        update atr updated_at
-        """
+        """ save function """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """To_dict.
-
-        Returns:
-            dict: dictionary representation.
-        """
-        classDict = self.__dict__.copy()
-        classDict["__class__"] = self.__class__.__name__
-        classDict["created_at"] = self.created_at.isoformat()
-        classDict["updated_at"] = self.updated_at.isoformat()
-        return classDict
+        """ Return a dictonary """
+        aux_dict = self.__dict__.copy()
+        aux_dict['__class__'] = self.__class__.__name__
+        aux_dict['created_at'] = self.created_at.isoformat()
+        aux_dict['updated_at'] = self.updated_at.isoformat()
+        return aux_dict
